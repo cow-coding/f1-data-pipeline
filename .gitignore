@@ -1,0 +1,28 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+.venv/
+venv/
+*.egg-info/
+
+# macOS
+.DS_Store
+
+# IDE
+.idea/
+.vscode/
+
+# dbt
+transform/f1_dbt/target/
+transform/f1_dbt/logs/
+transform/f1_dbt/dev.duckdb
+transform/logs/
+
+# Data
+data/
+*.parquet
+
+# Env
+.env
+*.env

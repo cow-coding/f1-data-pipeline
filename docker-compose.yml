@@ -1,0 +1,51 @@
+services:
+  minio:
+    image: minio/minio
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+    environment:
+      MINIO_ROOT_USER: minioadmin
+      MINIO_ROOT_PASSWORD: minioadmin
+    command: server /data --console-address ":9001"
+    volumes:
+      - minio-data:/data
+    healthcheck:
+      test: ["CMD", "mc", "ready", "local"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  minio-init:
+    image: minio/mc
+    depends_on:
+      minio:
+        condition: service_healthy
+    volumes:
+      - ./scripts/init-minio.sh:/init-minio.sh
+    entrypoint: ["/bin/sh", "/init-minio.sh"]
+
+  collector:
+    build: ./collector
+    ports:
+      - "8000:8000"
+    environment:
+      MINIO_ENDPOINT: http://minio:9000
+      MINIO_ACCESS_KEY: minioadmin
+      MINIO_SECRET_KEY: minioadmin
+      MINIO_BUCKET: f1-raw
+    depends_on:
+      minio:
+        condition: service_healthy
+
+  event-generator:
+    build: ./event-generator
+    environment:
+      COLLECTOR_URL: http://collector:8000/events
+      SESSION_KEY: 9158
+      EMIT_INTERVAL_SEC: 1.0
+    depends_on:
+      - collector
+
+volumes:
+  minio-data:
