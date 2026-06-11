@@ -1,0 +1,51 @@
+models:
+  - name: stg_car_data
+    columns:
+      - name: event_id
+        tests:
+          - not_null
+    tests:
+      - dbt_utils.recency:
+          datepart: hour
+          field: emitted_at
+          interval: 2
+  - name: stg_pit_data
+    columns:
+      - name: event_id
+        tests:
+          - not_null
+    tests:
+      - dbt_utils.recency:
+          datepart: hour
+          field: emitted_at
+          interval: 2
+  - name: stg_position_data
+    columns:
+      - name: event_id
+        tests:
+          - not_null
+    tests:
+      - dbt_utils.recency:
+          datepart: hour
+          field: emitted_at
+          interval: 2
+  - name: stg_race_control_data
+    columns:
+      - name: event_id
+        tests:
+          - not_null
+    tests:
+      - dbt_utils.recency:
+          datepart: hour
+          field: emitted_at
+          interval: 2
+  - name: stg_weather_data
+    columns:
+      - name: event_id
+        tests:
+          - not_null
+    tests:
+      - dbt_utils.recency:
+          datepart: hour
+          field: emitted_at
+          interval: 2

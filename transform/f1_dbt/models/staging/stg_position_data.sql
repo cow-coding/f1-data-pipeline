@@ -1,4 +1,4 @@
--- write a unpacking query here based on test_collector.py 's position data schema
+{{ config(materialized='incremental') }}
 SELECT
     event_id,
     event_type,
@@ -11,3 +11,6 @@ SELECT
     "hour",
     emitted_at
 FROM read_parquet('s3://f1-raw/raw/event_type=position/**/*.parquet')
+{% if is_incremental() %}
+WHERE emitted_at > (SELECT MAX(emitted_at) FROM {{ this }})
+{% endif %}

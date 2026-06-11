@@ -1,3 +1,4 @@
+{{ config(materialized='table') }}
 -- car_data는 먼저 집계하고
 WITH car_stats AS (
     SELECT driver_number,
