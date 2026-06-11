@@ -8,6 +8,8 @@ from logger import setup_logger
 setup_logger()
 logger = logging.getLogger(__name__)
 
+os.environ['ROOT_DIR'] = os.getcwd()
+
 from fastapi import FastAPI
 
 from buffer.buffer import event_buffer, check_flush_loop
@@ -23,8 +25,6 @@ async def lifespan(app: FastAPI):
 
 
 app = FastAPI(lifespan=lifespan)
-
-os.environ['ROOT_DIR'] = os.getcwd()
 
 
 @app.get("/health")
