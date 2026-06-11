@@ -18,6 +18,7 @@ transform/f1_dbt/target/
 transform/f1_dbt/logs/
 transform/f1_dbt/dev.duckdb
 transform/logs/
+logs/
 
 # Data
 data/
