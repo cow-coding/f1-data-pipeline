@@ -18,3 +18,9 @@ ENDPOINTS = [
     "weather",
     "race_control",
 ]
+
+# 시작 시 한 번만 로드하는 dimension 엔드포인트
+DIM_ENDPOINTS = [
+    "drivers",
+    "sessions",
+]
