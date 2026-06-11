@@ -27,3 +27,6 @@ data/
 # Env
 .env
 *.env
+
+# Personal study notes
+docs/
